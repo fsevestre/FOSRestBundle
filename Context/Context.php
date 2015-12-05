@@ -44,8 +44,8 @@ class Context implements ContextInterface, GroupableContextInterface, Versionabl
      */
     public function __construct()
     {
-        $this->attributes = [];
-        $this->groups = [];
+        $this->attributes = array();
+        $this->groups = array();
     }
 
     /**
