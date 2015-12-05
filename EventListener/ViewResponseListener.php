@@ -117,7 +117,7 @@ class ViewResponseListener extends TemplateListener
             }
 
             $template = $request->attributes->get('_template');
-            if ($template)) {
+            if ($template && !$view->getTemplate()) {
                 if ($template instanceof TemplateReference) {
                     $template->set('format', null);
                 }
