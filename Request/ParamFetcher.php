@@ -38,6 +38,7 @@ class ParamFetcher implements ParamFetcherInterface, ContainerAwareInterface
 {
     private $paramReader;
     private $requestStack;
+    private $currentRequest;
     private $params;
     private $validator;
     private $violationFormatter;
@@ -119,8 +120,10 @@ class ParamFetcher implements ParamFetcherInterface, ContainerAwareInterface
      */
     public function getParams()
     {
-        if (null === $this->params) {
+        $currentRequest = $this->getRequest();
+        if (null === $this->params || $this->currentRequest !== $currentRequest) {
             $this->initParams();
+            $this->currentRequest = $currentRequest;
         }
 
         return $this->params;
