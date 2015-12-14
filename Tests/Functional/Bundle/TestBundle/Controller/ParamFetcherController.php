@@ -23,8 +23,8 @@ use Symfony\Component\Validator\Constraints\IdenticalTo;
 class ParamFetcherController extends Controller
 {
     /**
-     * @RequestParam(name="raw", requirements=@IdenticalTo("fooraw"), default="invalid")
-     * @RequestParam(name="map", array=true, requirements=@IdenticalTo({"foo"="map", "foobar"="foo"}), default="invalid2")
+     * @RequestParam(name="raw", requirements=@IdenticalTo(value="fooraw", message="foo"), default="invalid")
+     * @RequestParam(name="map", array=true, requirements=@IdenticalTo(value={"foo"="map", "foobar"="foo"}, message="foo"), default="invalid2")
      */
     public function paramsAction(ParamFetcherInterface $fetcher)
     {
@@ -45,13 +45,12 @@ class ParamFetcherController extends Controller
         $newRequest->attributes->set('_controller', sprintf('%s::paramsAction', __CLASS__));
         $response = $this->container->get('http_kernel')->handle($newRequest, HttpKernelInterface::SUB_REQUEST, false);
 
-        // FIXME: The controller is not reinitialized after a sub request.
-        // $paramsAfter = $fetcher->all(false);
+        $paramsAfter = $fetcher->all(false);
 
         return new JsonResponse(array(
             'before' => $paramsBefore,
             'during' => json_decode($response->getContent(), true),
-            // 'after' => $paramsAfter
+            'after' => $paramsAfter,
         ));
     }
 }

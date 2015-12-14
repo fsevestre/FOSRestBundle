@@ -60,7 +60,7 @@ class ParamFetcherTest extends WebTestCase
         $this->assertEquals(array(
             'before' => array('foo' => 'quz', 'bar' => 'foo'),
             'during' => array('raw' => $this->validRaw, 'map' => array('invalid2')),
-            // 'after' => array('foo' => 'quz', 'bar' => 'foo'),
+            'after' => array('foo' => 'quz', 'bar' => 'foo'),
         ), $this->getData());
     }
 
