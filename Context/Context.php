@@ -107,9 +107,6 @@ class Context implements ContextInterface, GroupableContextInterface, Versionabl
      */
     public function addGroup($group)
     {
-        if (!is_string($group)) {
-            throw new \InvalidArgumentException('A normalization group must be a string.');
-        }
         if (!in_array($group, $this->groups)) {
             $this->groups[] = $group;
         }
